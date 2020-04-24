@@ -20,9 +20,6 @@ function setup() {
     // Create an instance of Engine, World
     engine = Engine.create();
     world = engine.world;
-
-    
-    
     
     // A slider is already created for you here. This slider will dictate the gravity of the world
     gSlider = createSlider(0, 100, 50);
@@ -33,8 +30,11 @@ function setup() {
         isStatic : true
     }
     // boxes created between random size 10 - 100
-    box = new Box(mouseX,mouseY,100,100);  
-        
+    random_width = random(10, 100);
+    random_height = random(10, 100);
+    random_x = random(50,350);
+    random_y = random(50,350)
+    box = new Box(random_x,random_y,random_width,random_height);  
     
 }
  
