@@ -8,12 +8,11 @@ const Bodies = Matter.Bodies;
  
 var engine;
 var world;
-var boxes 
+var boxes = [];
  
 var ground;
 var gSlider;
  
-var box;
 function setup() {
     createCanvas(400, 400);
 
@@ -23,42 +22,37 @@ function setup() {
     
     // A slider is already created for you here. This slider will dictate the gravity of the world
     gSlider = createSlider(0, 100, 50);
-    gSlider.position(40, 365);
-    gSlider.input = map(engine.world.gravity, gSlider.min, gSlider.max, 0, 1);
+    gSlider.position(40, 65);
     
-    var ground_option = {
-        isStatic : true
-    }
-    // boxes created between random size 10 - 100
-    random_width = random(10, 100);
-    random_height = random(10, 100);
-    random_x = random(50,350);
-    random_y = random(50,350)
-    box = new Box(random_x,random_y,random_width,random_height);  
     
+    ground = new Ground(200,390,400,20);
+
 }
  
 function mouseClicked() {
-    
-    
-    
+    if (mouseY < 350) {
+    // boxes created between random size 10 - 100
+        random_width = random(10, 100);
+        random_height = random(10, 100);
+        // a box is spawned at the mouse click
+        var box = new Box(mouseX,mouseY,random_width,random_height);
+        boxes.push(box);
+    }    
 }
  
 function draw() {
     Engine.update(engine);
     // Draw all the elements including the slider that 
     background(200);
+    ground.display();
     // This is the value of your gravity. You can optionally show it to the viewer.
-    var fVal = gSlider.value();
-    // console.log(box)
-    box.display();
-    
+    for(var i=0; i<boxes.length; i++){
+        boxes[i].display();
+    }
+    var g = map(gSlider.value(),0,100,0,1); 
+    text("Gravity " + g, 160, 65);
 
     
-    
+    engine.world.gravity.y =  g
+
 }
-
-   
-
-
- 
